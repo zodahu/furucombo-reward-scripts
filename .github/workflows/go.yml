@@ -25,9 +25,7 @@ jobs:
         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
 
-    - uses: actions/checkout@v2
-    - name: Deploy
-      uses: exuanbo/actions-deploy-gist@v1
+    - uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_ACCESS_TOKEN }}
         gist_id: 752fbca01a606abecf113e9796e0c3f5
