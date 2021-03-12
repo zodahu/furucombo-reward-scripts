@@ -33,8 +33,6 @@ jobs:
         find: ": 0,"
         replace: ": ${{ fromJson(steps.blockNumber.outputs.response).result }},"
         include: "config/staking/${{ env.ROUND }}.json"
-        
-    - run: echo ${{ fromJson(steps.replace.outputs.modifiedFiles) }}
 
     - run: go run main.go stakingv2 -c=config/staking/${{ env.ROUND }}.json
       env:
@@ -43,17 +41,16 @@ jobs:
         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
 
-#     - uses: exuanbo/actions-deploy-gist@v1
-#       with:
-#         token: ${{ secrets.GIST_ACCESS_TOKEN }}
-#         gist_id: 752fbca01a606abecf113e9796e0c3f5
-#         gist_file_name: combo_stakings.json
-#         file_path: ./rewards/staking/8/0x7c46eFAe8632A0c0e1C25718bae91b6b62D9A16E/stakings.json
-        
+    - uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_ACCESS_TOKEN }}
+        gist_id: 752fbca01a606abecf113e9796e0c3f5
+        gist_file_name: combo_stakings.json
+        file_path: ./rewards/staking/8/0x7c46eFAe8632A0c0e1C25718bae91b6b62D9A16E/stakings.json
 
-#     - uses: exuanbo/actions-deploy-gist@v1
-#       with:
-#         token: ${{ secrets.GIST_ACCESS_TOKEN }}
-#         gist_id: 752fbca01a606abecf113e9796e0c3f5
-#         gist_file_name: lp_stakings.json
-#         file_path: ./rewards/staking/8/0x78d742F43Ce72B3D7bDBB2147c252F7a8bab3de4/stakings.json
+    - uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_ACCESS_TOKEN }}
+        gist_id: 752fbca01a606abecf113e9796e0c3f5
+        gist_file_name: lp_stakings.json
+        file_path: ./rewards/staking/8/0x78d742F43Ce72B3D7bDBB2147c252F7a8bab3de4/stakings.json
