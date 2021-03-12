@@ -19,11 +19,13 @@ jobs:
         go-version: 1.15
 
     - run: echo "ROUND=$(echo $(file=$(ls -1 config/staking | tail -n 1); echo ${file:0:1}))" >> $GITHUB_ENV
+    - run: echo "TIMESTAMP=$(echo date +%s)" >> $GITHUB_ENV
 
     - id: blockNumber
       uses: fjogeleit/http-request-action@master
       with:
-        url: echo "https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=$(echo date +%s)&closest=before&apikey=${{ secrets.ETHEREUM_RPC_URL }}"
+        url: 'https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=$TIMESTAMP&closest=before&apikey=${{ secrets.ETHEREUM_RPC_URL }}'
+        method: 'GET'
 
     - run: echo ${{ steps.blockNumber.outputs.response.result }}
 
