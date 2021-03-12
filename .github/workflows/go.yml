@@ -20,22 +20,21 @@ jobs:
 
     - run: echo "ROUND=$(echo $(file=$(ls -1 config/staking | tail -n 1); echo ${file:0:1}))" >> $GITHUB_ENV
     - run: echo "TIMESTAMP=$(date +%s --date='- 5 minutes')" >> $GITHUB_ENV
-    - run: echo "ETHERSCAN_URL=https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=$TIMESTAMP&closest=before&apikey=${{ secrets.ETHERSCAN_API_KEY }}" >> $GITHUB_ENV
 
     - id: blockNumber
       uses: fjogeleit/http-request-action@master
       with:
-        url: ${{ env.ETHERSCAN_URL }}
+        url: 'https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=${{ env.TIMESTAMP }}&closest=before&apikey=${{ secrets.ETHERSCAN_API_KEY }}'
         method: 'GET'
 
     - run: echo ${{ steps.blockNumber.outputs.response }}
 
-#     - run: go run main.go stakingv2 -c=config/staking/$ROUND.json
-#       env:
-#         ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
-#         ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
-#         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
-#         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
+    - run: go run main.go stakingv2 -c=config/staking/${{ env.ROUND }}.json
+      env:
+        ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
+        ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+        FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
+        FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
 
 #     - uses: exuanbo/actions-deploy-gist@v1
 #       with:
