@@ -20,7 +20,7 @@ jobs:
 
     - run: echo "ROUND=$(echo $(file=$(ls -1 config/staking | tail -n 1); echo ${file:0:1}))" >> $GITHUB_ENV
 
-    - run: echo "go run main.go stakingv2 -c=config/staking/${ROUND}.json"
+    - run: go run main.go stakingv2 -c=config/staking/$ROUND.json
       env:
         ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
         ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
