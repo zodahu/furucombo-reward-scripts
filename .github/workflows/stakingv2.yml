@@ -2,7 +2,7 @@ name: Execute stakingv2 reward calculation
 
 on:
   schedule:
-    - cron: '5,35 * * * *'
+    - cron: '*/20 * * * *'
 
 jobs:
 
@@ -40,6 +40,14 @@ jobs:
         ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
+
+    - name: Upload blocks stakings to gist
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_ACCESS_TOKEN }}
+        gist_id: 752fbca01a606abecf113e9796e0c3f5
+        gist_file_name: blocks.json
+        file_path: ./rewards/staking/8/blocks.json
 
     - name: Upload COMBO stakings to gist
       uses: exuanbo/actions-deploy-gist@v1
