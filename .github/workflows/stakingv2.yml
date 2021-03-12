@@ -1,4 +1,4 @@
-name: Go
+name: Execute stakingv2 reward calculation
 
 on:
   push:
@@ -21,13 +21,15 @@ jobs:
     - run: echo "ROUND=$(echo $(file=$(ls -1 config/staking | tail -n 1); echo ${file:0:1}))" >> $GITHUB_ENV
     - run: echo "TIMESTAMP=$(date +%s --date='- 5 minutes')" >> $GITHUB_ENV
 
-    - id: blockNumber
+    - name: Get the block number 5 mins ago from etherscan
+      id: blockNumber
       uses: fjogeleit/http-request-action@master
       with:
         url: 'https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=${{ env.TIMESTAMP }}&closest=before&apikey=${{ secrets.ETHERSCAN_API_KEY }}'
         method: 'GET'
 
-    - id: replace
+    - name: Set the block number to config
+      id: replace
       uses: jacobtomlinson/gha-find-replace@master
       with:
         find: ": 0,"
@@ -41,14 +43,16 @@ jobs:
         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
 
-    - uses: exuanbo/actions-deploy-gist@v1
+    - name: Upload COMBO stakings to gist
+      uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_ACCESS_TOKEN }}
         gist_id: 752fbca01a606abecf113e9796e0c3f5
         gist_file_name: combo_stakings.json
         file_path: ./rewards/staking/8/0x7c46eFAe8632A0c0e1C25718bae91b6b62D9A16E/stakings.json
 
-    - uses: exuanbo/actions-deploy-gist@v1
+    - name: Upload LP stakings to gist
+      uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_ACCESS_TOKEN }}
         gist_id: 752fbca01a606abecf113e9796e0c3f5
