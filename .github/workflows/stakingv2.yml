@@ -45,7 +45,7 @@ jobs:
         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
 
-    - name: Upload blocks stakings to gist
+    - name: Upload blocks to gist
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_ACCESS_TOKEN }}
@@ -53,7 +53,7 @@ jobs:
         gist_file_name: blocks.json
         file_path: ./rewards/staking/${{ env.ROUND }}/blocks.json
 
-    - name: Upload pool prices stakings to gist
+    - name: Upload pool prices to gist
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_ACCESS_TOKEN }}
