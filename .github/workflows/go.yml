@@ -25,7 +25,7 @@ jobs:
     - id: blockNumber
       uses: fjogeleit/http-request-action@master
       with:
-        url: ${{ ETHERSCAN_URL }}
+        url: ${{ env.ETHERSCAN_URL }}
         method: 'GET'
 
     - run: echo ${{ steps.blockNumber.outputs.response }}
