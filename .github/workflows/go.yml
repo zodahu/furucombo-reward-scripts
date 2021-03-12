@@ -32,7 +32,7 @@ jobs:
       with:
         find: ": 0,"
         replace: ": ${{ fromJson(steps.blockNumber.outputs.response).result }},"
-        include: "./config/staking/${{ env.ROUND }}.json"
+        include: "config/staking/${{ env.ROUND }}.json"
         
     - run: echo ${{ fromJson(steps.replace.outputs.modifiedFiles) }}
 
