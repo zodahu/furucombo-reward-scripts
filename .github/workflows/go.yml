@@ -17,9 +17,18 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.15
+
     - run: go run main.go stakingv2 -c=config/staking/8.json
       env:
         ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
         ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
+
+    - uses: actions/checkout@v2
+    - name: Deploy
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_ACCESS_TOKEN }}
+        gist_id: 752fbca01a606abecf113e9796e0c3f5
+        file_path: ./rewards/staking/8/0x7c46eFAe8632A0c0e1C25718bae91b6b62D9A16E/stakings.json
