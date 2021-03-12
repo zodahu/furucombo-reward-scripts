@@ -29,4 +29,5 @@ jobs:
       with:
         token: ${{ secrets.GIST_ACCESS_TOKEN }}
         gist_id: 752fbca01a606abecf113e9796e0c3f5
+        gist_file_name: combo_stakings.json
         file_path: ./rewards/staking/8/0x7c46eFAe8632A0c0e1C25718bae91b6b62D9A16E/stakings.json
