@@ -2,7 +2,7 @@ name: Execute stakingv2 reward calculation
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '5,35 * * * *'
 
 jobs:
 
