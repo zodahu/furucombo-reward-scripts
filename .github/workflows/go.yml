@@ -27,7 +27,11 @@ jobs:
         url: 'https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=${{ env.TIMESTAMP }}&closest=before&apikey=${{ secrets.ETHERSCAN_API_KEY }}'
         method: 'GET'
 
-    - run: echo ${{ fromJson(steps.blockNumber.outputs.response).result }}
+    - uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "\"endBlock\": 0"
+        replace: "\"endBlock\": ${{ fromJson(steps.blockNumber.outputs.response).result }}"
+        include: "./config/staking/${{ env.ROUND }}.json"
 
     - run: go run main.go stakingv2 -c=config/staking/${{ env.ROUND }}.json
       env:
