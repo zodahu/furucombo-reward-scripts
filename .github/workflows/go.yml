@@ -29,8 +29,8 @@ jobs:
 
     - uses: jacobtomlinson/gha-find-replace@master
       with:
-        find: "\"endBlock\": 0"
-        replace: "\"endBlock\": ${{ fromJson(steps.blockNumber.outputs.response).result }}"
+        find: ": 0,"
+        replace: ": ${{ fromJson(steps.blockNumber.outputs.response).result }},"
         include: "./config/staking/${{ env.ROUND }}.json"
 
     - run: go run main.go stakingv2 -c=config/staking/${{ env.ROUND }}.json
