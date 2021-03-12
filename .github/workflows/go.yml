@@ -24,7 +24,7 @@ jobs:
     - id: blockNumber
       uses: fjogeleit/http-request-action@master
       with:
-        url: https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=$TIMESTAMP&closest=before&apikey=${{ secrets.ETHEREUM_RPC_URL }}
+        url: 'https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=$TIMESTAMP&closest=before&apikey=${{ secrets.ETHERSCAN_API_KEY }}'
         method: 'GET'
 
     - run: echo ${{ steps.blockNumber.outputs.response }}
