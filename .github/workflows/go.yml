@@ -20,6 +20,13 @@ jobs:
 
     - run: echo "ROUND=$(echo $(file=$(ls -1 config/staking | tail -n 1); echo ${file:0:1}))" >> $GITHUB_ENV
 
+    - id: blockNumber
+      uses: fjogeleit/http-request-action@master
+      with:
+        url: echo "https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp=$(echo date +%s)&closest=before&apikey=${{ secrets.ETHEREUM_RPC_URL }}"
+
+    - run: echo ${{ steps.blockNumber.outputs.response.result }}
+
     - run: go run main.go stakingv2 -c=config/staking/$ROUND.json
       env:
         ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
