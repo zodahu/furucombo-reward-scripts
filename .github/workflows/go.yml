@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.15
+    - run: go run main.go stakingv2 -c=config/staking/8.json
       env:
         ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
         ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
         FURUCOMBO_PROXY_ADDRESSES: ${{ secrets.FURUCOMBO_PROXY_ADDRESSES }}
         FURUCOMBO_DSPROXY_ADDRESSES: ${{ secrets.FURUCOMBO_DSPROXY_ADDRESSES }}
-    - run: go run main.go stakingv2 -c=config/staking/8.json
