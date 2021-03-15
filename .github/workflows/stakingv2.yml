@@ -1,8 +1,8 @@
 name: Execute stakingv2 reward calculation
 
 on:
-  schedule:
-    - cron: '*/20 * * * *'
+#   schedule:
+#     - cron: '*/20 * * * *'
   push:
     branches: [ master ]
   pull_request:
